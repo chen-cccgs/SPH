@@ -1,6 +1,7 @@
-import { Vue } from 'vue'
-import VueRouter from vue-router
-Vue.use(Vuerouter)
+import VueRouter from 'vue-router'
+import  Vue from 'vue'
+
+Vue.use(VueRouter)
 
 import Home from '@/pages/Home'
 import Login from '@/pages/Login'
@@ -8,7 +9,8 @@ import Reg from '@/pages/Reg'
 import Search from '@/pages/Search'
 
 export default new VueRouter({
-    router:[
+    mode:"history",
+    routes:[
         {
             path:'/home',
             component:Home
@@ -18,12 +20,16 @@ export default new VueRouter({
             component:Login
         },
         {
-            path:'/Reg',
-            components:Reg
+            path:'/reg', 
+            component:Reg
         },
         {
-            path:'/Search',
-            components:Search
+            path:'/search',
+            component:Search
+        },
+        {
+            path:'*',
+            redirect:'/home'
         }
-    ]
+    ],
 })
