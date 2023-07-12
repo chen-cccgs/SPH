@@ -13,19 +13,22 @@ export default new VueRouter({
     routes:[
         {
             path:'/home',
-            component:Home
+            component:Home,
         },
         {
             path:'/login',
-            component:Login
+            component:Login,
+            meta:{FooterShow:true}
         },
         {
             path:'/reg', 
-            component:Reg
+            component:Reg,
+            meta:{FooterShow:true}
         },
         {
-            path:'/search',
-            component:Search
+            name:"search",
+            path:'/search/:keyword',
+            component:Search,
         },
         {
             path:'*',
