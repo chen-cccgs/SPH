@@ -1,7 +1,7 @@
 <template>
   <div class="type-nav">
   <div class="container">
-    <h2 class="all">全部商品分类</h2>
+    <h2 class="all" @mouseenter="searchShow" @mouseleave="searchHidden">全部商品分类</h2>
     <nav class="nav">
       <a href="###">服装城</a>
       <a href="###">美妆馆</a>
@@ -12,21 +12,22 @@
       <a href="###">有趣</a>
       <a href="###">秒杀</a>
     </nav>
-    <div class="sort">
-      <div class="all-sort-list2">
+    <transition name="sort">
+      <div class="sort" v-show="show" @mouseenter="searchShow" @mouseleave="searchHidden">
+      <div class="all-sort-list2" @click="goSearch">
         <div class="item" v-for="(c1) in categoryList" :key="c1.categoryId">
           <h3>
-            <a href="">{{c1.categoryName}}</a>
+            <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
           </h3>
           <div class="item-list clearfix">
             <div class="subitem" v-for="(c2) in c1.categoryChild" :key="c2.categoryId">
               <dl class="fore">
                 <dt>
-                  <a href="">{{c2.categoryName}}</a>
+                  <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
                 </dt>
                 <dd >
                   <em v-for="(c3) in c2.categoryChild" :key="c3.categoryId">
-                    <a href="">{{c3.categoryName}}</a>
+                    <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
                   </em>
                 </dd>
               </dl>
@@ -34,17 +35,49 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </transition>
   </div>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import router from '@/router';
+import { mapState } from 'vuex';
   export default {
+    data(){
+      return{
+          show:true
+      }
+    },
     name:'TypeNav',
+    methods:{
+      goSearch(event){
+        let element = event.target.dataset
+        let location = {name:'search',query:{categoryName:element.categoryname}}
+          if(element.category1id)
+            location.query.category1Id = element.category1id
+          else if(element.category2id)
+            location.query.category2Id = element.category2id
+          else if(element.category3id)
+          location.query.category3Id = element.category3id
+          else 
+            return 
+        if(this.$route.params)
+          location.params = this.$route.params
+        this.$router.push(location)
+      },
+      searchShow(){
+        this.show = true
+      },
+      searchHidden(){
+        if(this.$route.path == '/search')
+          this.show = false
+      }
+    },
     mounted() {
-      this.$store.dispatch('categoryList')
+      if(this.$route.path == '/search')
+        this.show = false
     },
     computed:{
       ...mapState({
@@ -90,11 +123,10 @@
                     left: 0;
                     top: 45px;
                     width: 210px;
-                    height: 461px;
+                    height: 476px;
                     position: absolute;
                     background: #fafafa;
                     z-index: 999;
-
                     .all-sort-list2 {
                         .item {
                             h3 {
@@ -107,7 +139,6 @@
 
                                 a {
                                     color: #333;
-                                    text-decoration: none;
                                 }
                             }
 
@@ -174,6 +205,15 @@
                         }
                     }
                 }
+
+                .sort-enter,.sort-leave-to{
+                  opacity: 0;
+                }
+
+                .sort-enter-active,.sort-leave-active{
+                  transition: all .2s linear;
+                }
+
             }
         }
 </style>

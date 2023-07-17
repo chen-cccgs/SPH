@@ -27,7 +27,7 @@
             <!--头部第二行 搜索区域-->
             <div class="bottom">
                 <h1 class="logoArea">
-                    <a class="logo" title="尚品汇" href="###" target="_blank">
+                    <a class="logo" title="尚品汇" href="/home">
                         <img src="./images/logo.png" alt="">
                     </a>
                 </h1>
@@ -56,8 +56,8 @@ export default {
             // this.$router.push(`/search/${this.keyword}?key=${this.keyword.toUpperCase()}`)
             this.$router.push({
                 name:'search',
-                params:{keyword:this.keyword},
-                query:{key:this.keyword.toUpperCase()}
+                params:{keyword:this.keyword || undefined},
+                query:this.$route.query
             })
         }
     },
