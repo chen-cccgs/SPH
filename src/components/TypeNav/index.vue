@@ -107,6 +107,7 @@
 
                                 a {
                                     color: #333;
+                                    text-decoration: none;
                                 }
                             }
 
@@ -165,7 +166,7 @@
                             }
 
                             &:hover {
-                              background-color:#e1251b;
+                              background-color:skyblue;
                                 .item-list {
                                     display: block;
                                 }
