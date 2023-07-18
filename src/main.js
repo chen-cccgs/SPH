@@ -7,6 +7,8 @@ import store from '@/store'
 import TypeNav from '@/components/TypeNav'
 Vue.component(TypeNav.name,TypeNav)
 
+import '@/mock/mockServe'
+
 new Vue({
     render:h => h(App),
     router,
