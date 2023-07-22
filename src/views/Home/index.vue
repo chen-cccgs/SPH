@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import ListContainer from "./listContainer";
 import Recommend from "./recommend";
 import Rank from "./rank";
@@ -28,6 +29,11 @@ export default {
       Floor,
       Brand,
     },
+    computed:{
+      ...mapState({
+        floorList: state => state.home.floorList
+      })
+    }
 }
 </script>
 

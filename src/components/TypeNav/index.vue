@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import router from '@/router';
 import { mapState } from 'vuex';
   export default {
     data(){

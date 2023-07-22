@@ -3,10 +3,10 @@ import  Vue from 'vue'
 
 Vue.use(VueRouter)
 
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Reg from '@/pages/Reg'
-import Search from '@/pages/Search'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import Reg from '@/views/Reg'
+import Search from '@/views/Search'
 
 export default new VueRouter({
     mode:"history",
