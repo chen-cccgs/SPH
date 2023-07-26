@@ -8,6 +8,14 @@ export const reqCategoryList = ()=>{
     })
 }
 
+export const reqSearchInfo = (params)=>{
+    return requests({
+        url:'/list',
+        method:'post',
+        data:params
+    })
+}
+
 export const reqBannerList = ()=>{
     return mockRequest({
         url:'/banner',
@@ -21,3 +29,4 @@ export const reqFloorList = ()=>{
         method:'get'
     })
 }
+
