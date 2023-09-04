@@ -15,7 +15,11 @@ const actions = {
         }
     }
 }
-const getters = {}
+const getters = {
+    searchList(){
+        return state.searchList
+    }
+}
 
 export default {
     state,

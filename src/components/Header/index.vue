@@ -32,7 +32,7 @@
                     </a>
                 </h1>
                 <div class="searchArea">
-                    <form action="###" class="searchForm">
+                    <form action="" class="searchForm">
                         <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
                         <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
                     </form>
