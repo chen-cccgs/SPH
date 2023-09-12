@@ -16,15 +16,15 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom :imgList="commodityDetails.skuInfo.skuImageList"/>
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList :imgList="commodityDetails.skuInfo.skuImageList"/>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail">
-            <h3 class="InfoName">{{commodityDetails.skuInfo.skuName}}</h3>
-            <p class="news">{{commodityDetails.skuInfo.skuDesc}}</p> 
+            <h3 class="InfoName" v-if=commodityDetails.skuInfo>{{commodityDetails.skuInfo.skuName}}</h3>
+            <p class="news" v-if=commodityDetails.skuInfo>{{commodityDetails.skuInfo.skuDesc}}</p> 
             <div class="priceArea">
               <div class="priceArea1">
                 <div class="title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
@@ -63,29 +63,9 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl>
-                <dt class="title">选择颜色</dt>
-                <dd changepirce="0" class="active">金色</dd>
-                <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd>
-              </dl>
-              <dl>
-                <dt class="title">内存容量</dt>
-                <dd changepirce="0" class="active">16G</dd>
-                <dd changepirce="300">64G</dd>
-                <dd changepirce="900">128G</dd>
-                <dd changepirce="1300">256G</dd>
-              </dl>
-              <dl>
-                <dt class="title">选择版本</dt>
-                <dd changepirce="0" class="active">公开版</dd>
-                <dd changepirce="-1000">移动版</dd>
-              </dl>
-              <dl>
-                <dt class="title">购买方式</dt>
-                <dd changepirce="0" class="active">官方标配</dd>
-                <dd changepirce="-240">优惠移动版</dd>
-                <dd changepirce="-390">电信优惠版</dd>
+              <dl v-if=commodityDetails.spuSaleAttrList v-for="(commodity,inn) in commodityDetails.spuSaleAttrList">                              
+                <dt class="title">{{commodity.saleAttrName}}</dt>
+                <dd changepirce="0" v-for="(attr, index) in commodity.spuSaleAttrValueList" @click="select(inn,index)" :class="{ 'active' : index == activeIndex[inn] }">{{attr.saleAttrValueName}}</dd>
               </dl>
             </div>
             <div class="cartWrap">
@@ -355,6 +335,16 @@
     components: {
       ImageList,
       Zoom
+    },
+    data(){
+      return{
+        activeIndex:Array(5).fill(0),
+      }
+    },
+    methods:{
+      select(inn,index){
+        this.$set(this.activeIndex, inn, index);
+      }
     },
     mounted(){
       this.$store.dispatch('details',this.$route.params.id)

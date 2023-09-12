@@ -1,8 +1,8 @@
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div class="swiper-slide" v-for="(img,index) in imgList">
+        <img @click="change(index)" :src="img.imgUrl" :class="{'active': index === current}">
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -15,20 +15,31 @@
   import Swiper from 'swiper'
   export default {
     name: "ImageList",
+    props:["imgList"],
+    data(){
+      return{
+        current:0,
+      }
+    },
+    methods:{
+      change(index){
+        this.current = index        
+        this.$bus.$emit('changeIndex', index)
+      }
+    }
   }
 </script>
 
 <style lang="less" scoped>
   .swiper-container {
     height: 56px;
-    width: 412px;
+    width: 402px;
     box-sizing: border-box;
     padding: 0 12px;
 
     .swiper-slide {
       width: 56px;
       height: 56px;
-
       img {
         width: 100%;
         height: 100%;
@@ -42,7 +53,6 @@
           border: 2px solid #f60;
           padding: 1px;
         }
-
         &:hover {
           border: 2px solid #f60;
           padding: 1px;

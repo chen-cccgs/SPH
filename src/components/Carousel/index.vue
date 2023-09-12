@@ -39,8 +39,8 @@ export default {
             scrollbar: {
               el: ".swiper-scrollbar",
             },
-          });
-        });
+          })
+        })
       },
     },
   },
