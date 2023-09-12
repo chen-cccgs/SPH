@@ -16,6 +16,13 @@ export const reqSearchInfo = (params)=>{
     })
 }
 
+export const reqDetails = (id)=>{
+    return requests({
+        url:`/item/${id}`,
+        method:'get',
+    })
+}
+
 export const reqBannerList = ()=>{
     return mockRequest({
         url:'/banner',

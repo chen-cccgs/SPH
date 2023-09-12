@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="(trade) in searchList.trademarkList">{{trade.tmName}}</li>
+          <li v-for="(trade) in searchList.trademarkList" @click="emitTradeSelect(trade)">{{trade.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -15,9 +15,9 @@
     <div class="type-wrap" v-for="(attr) in searchList.attrsList">
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
-        <ul class="type-list" v-for="(value) in attr.attrValueList">
-          <li>
-            <a>{{value}}</a>
+        <ul class="type-list" >
+          <li v-for="(value) in attr.attrValueList">
+            <a @click="emitAttrSelect(attr,value)">{{value}}</a>
           </li>
         </ul>
       </div>
@@ -30,6 +30,14 @@
   import {mapGetters} from 'vuex'
   export default {
     name: 'SearchSelector',
+    methods:{
+      emitTradeSelect(trade){
+        this.$emit('TMselect',trade)
+      },
+      emitAttrSelect(attr,value){
+        this.$emit('attrSelect',attr,value)
+      }
+    },
     computed:{
       ...mapGetters(['searchList'])
     },
@@ -38,6 +46,10 @@
 
 <style lang="less" scoped>
   .selector {
+    a{
+      cursor: pointer;
+    }
+
     border: 1px solid #ddd;
     margin-bottom: 5px;
     overflow: hidden;
@@ -47,9 +59,11 @@
       margin: 0;
       position: relative;
       overflow: hidden;
-
       .key {
         padding-bottom: 87px !important;
+      }
+      .logo-list{
+        cursor: pointer;
       }
     }
 

@@ -7,9 +7,12 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Reg from '@/views/Reg'
 import Search from '@/views/Search'
-
+import Details from '@/views/Detail'
 export default new VueRouter({
     mode:"history",
+    scrollBehavior(to, from, savedPosition){
+        return {y:0}
+    },
     routes:[
         {
             path:'/home',
@@ -29,6 +32,11 @@ export default new VueRouter({
             name:"search",
             path:'/search/:keyword?',
             component:Search,
+        },
+        {
+            name:'detail',
+            path:'/details/:id',
+            component:Details,
         },
         {
             path:'*',
