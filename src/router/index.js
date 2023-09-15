@@ -8,6 +8,8 @@ import Login from '@/views/Login'
 import Reg from '@/views/Reg'
 import Search from '@/views/Search'
 import Details from '@/views/Detail'
+import AddCartSuccess from '@/views/AddCartSuccess'
+import ShopCart from '@/views/ShopCart'
 export default new VueRouter({
     mode:"history",
     scrollBehavior(to, from, savedPosition){
@@ -41,6 +43,16 @@ export default new VueRouter({
         {
             path:'*',
             redirect:'/home'
-        }
+        },
+        {
+            name:'addcartsuccess',
+            path:'/addcartsuccess',
+            component:AddCartSuccess,
+        },
+        {
+            name:'shopcart',
+            path:'/shopcart',
+            component:ShopCart,
+        },
     ],
 })

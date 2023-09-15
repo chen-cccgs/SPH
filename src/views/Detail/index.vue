@@ -16,9 +16,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom :imgList="commodityDetails.skuInfo.skuImageList"/>
+          <Zoom v-if="commodityDetails.skuInfo" :imgList="commodityDetails.skuInfo.skuImageList"/>
           <!-- 小图列表 -->
-          <ImageList :imgList="commodityDetails.skuInfo.skuImageList"/>
+          <ImageList v-if="commodityDetails.skuInfo" :imgList="commodityDetails.skuInfo.skuImageList"/>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -70,12 +70,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model='skuNum' @input="onInputChange">
+                <a class="plus" @click="skuNum < 999? skuNum++ : skuNum = 999">+</a>
+                <a class="mins" @click="skuNum > 1  ? skuNum-- : skuNum = 1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addToShoppingCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -339,11 +339,26 @@
     data(){
       return{
         activeIndex:Array(5).fill(0),
+        skuNum:1,
       }
     },
     methods:{
       select(inn,index){
         this.$set(this.activeIndex, inn, index);
+      },
+      onInputChange() {
+      // 使用正则表达式确保输入框只包含数字
+      this.skuNum = this.skuNum.replace(/\D/g, "")
+      if(this.skuNum > 999)
+        this.skuNum = 999
+      },
+      async addToShoppingCart(){
+        try {
+          await this.$store.dispatch('addcard', { skuId: this.$route.params.id, skuNum: this.skuNum });
+          this.$router.push({name:'addcartsuccess',query:{skuInfo:this.commodityDetails.skuInfo, skuNum:this.skuNum}})
+        } catch (error) {
+          alert(error.message)
+        }   
       }
     },
     mounted(){

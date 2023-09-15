@@ -1,6 +1,6 @@
-import { reqDetails } from "@/api"
+import { reqDetails, addToCard} from "@/api"
 const state = {
-   details:{}
+   details:{},
 }
 const mutations = {
     DETAILS(state, details){
@@ -13,7 +13,15 @@ const actions = {
         if (result.code == 200){
             context.commit('DETAILS',result.data)
         }          
+    },
+    async addcard(context,{skuId, skuNum}){
+        let result = await addToCard(skuId, skuNum)
+        if (result.code == 200)
+            return 'ok'
+        else 
+            return Promise.reject(new Error('failed'))
     }
+
 }
 const getters = {
     commodityDetails(){

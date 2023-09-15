@@ -1,6 +1,5 @@
 import requests from "./ajaxRequest";
 import mockRequest from "./mockRequest";
-
 export const reqCategoryList = ()=>{
     return requests({
         url:'/product/getBaseCategoryList',
@@ -13,13 +12,6 @@ export const reqSearchInfo = (params)=>{
         url:'/list',
         method:'post',
         data:params
-    })
-}
-
-export const reqDetails = (id)=>{
-    return requests({
-        url:`/item/${id}`,
-        method:'get',
     })
 }
 
@@ -37,3 +29,23 @@ export const reqFloorList = ()=>{
     })
 }
 
+export const reqDetails = (id)=>{
+    return requests({
+        url:`/item/${id}`,
+        method:'get',
+    })
+}
+
+export const addToCard = (skuId,skuNum)=>{
+    return requests({
+        url:`/cart/addToCart/${skuId}/${skuNum}`,
+        method:'post',
+    })
+}
+
+export const cartList = ()=>{
+    return requests({
+        url:"/cart/cartList",
+        method:'get',
+    })
+}
